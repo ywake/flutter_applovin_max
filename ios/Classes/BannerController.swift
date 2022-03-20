@@ -14,9 +14,9 @@ class BannerAdController: UIViewController, MAAdViewAdDelegate, MAAdRevenueDeleg
 
     func initBannerAdController(unitId: String, sizeType: String)
     {
-        adView = MAAdView(adUnitIdentifier: unitId)
-        adView?.translatesAutoresizingMaskIntoConstraints = false
         type = sizeType
+        adView = MAAdView(adUnitIdentifier: unitId, adFormat: types[type!]!)
+        adView?.translatesAutoresizingMaskIntoConstraints = false
     }
 
     override func viewDidLoad()

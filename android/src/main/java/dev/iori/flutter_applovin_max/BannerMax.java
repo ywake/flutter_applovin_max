@@ -15,6 +15,7 @@ import com.applovin.adview.AppLovinAdViewEventListener;
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxReward;
 import com.applovin.mediation.MaxAdViewAdListener;
+import com.applovin.mediation.MaxAdFormat;
 
 import com.applovin.mediation.ads.MaxAdView;
 import com.applovin.sdk.AppLovinAd;
@@ -39,16 +40,26 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
             put("LEADER", AppLovinAdSize.LEADER);
         }
     };
+    final HashMap<AppLovinAdSize, MaxAdFormat> formats = new HashMap<AppLovinAdSize, MaxAdFormat>() {
+        {
+            put(AppLovinAdSize.BANNER, MaxAdFormat.BANNER);
+            put(AppLovinAdSize.MREC, MaxAdFormat.MREC);
+            put(AppLovinAdSize.LEADER, MaxAdFormat.LEADER);
+        }
+    };
 
     AppLovinAdSize size;
+    MaxAdFormat format;
     String AdUnitId;
 
     public BannerMax(Context context, HashMap args) {
         Log.d("Banner Max Android", "Constructor");
         try {
             this.size = this.sizes.get(args.get("Size"));
+            this.format = this.formats.get(this.size);
         } catch (Exception e) {
             this.size = AppLovinAdSize.BANNER;
+            this.format = MaxAdFormat.BANNER;
         }
         try {
             this.AdUnitId = args.get("UnitId").toString();
@@ -56,7 +67,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
             this.AdUnitId = "YOUR_AD_UNIT_ID";
         }
 
-        this.Banner = new MaxAdView( AdUnitId, FlutterApplovinMaxPlugin.activity);
+        this.Banner = new MaxAdView(AdUnitId, format, FlutterApplovinMaxPlugin.activity);
         final FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(
                 this.dpToPx(context, this.size.getWidth()), this.dpToPx(context, this.size.getHeight()));
         layout.gravity = Gravity.CENTER;
@@ -73,7 +84,7 @@ public class BannerMax extends FlutterActivity implements PlatformView, AppLovin
             this.Banner.setAdDisplayListener(this);
             this.Banner.setAdClickListener(this);
         }
-        */
+         */
 
     }
 
